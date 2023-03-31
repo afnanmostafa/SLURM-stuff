@@ -3,7 +3,7 @@
 ##=============  partition nodes (use only one) ========##
 ##SBATCH -p cpu-long
 ##SBATCH -p cpu-preempt
-##SBATCH --exclude=ceewater-cpu[001-010],zhoulin-cpu[001-006]
+##SBATCH --exclude=abcd[001-010],efgh[001-006]
 #SBATCH -p gpu-long
 
 ##=============  requirements ========##
