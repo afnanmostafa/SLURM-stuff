@@ -1,0 +1,51 @@
+#!/bin/bash
+
+##=============  partition nodes (use only one) ========##
+##SBATCH -p cpu-long
+##SBATCH -p cpu-preempt
+##SBATCH --exclude=ceewater-cpu[001-010],zhoulin-cpu[001-006]
+#SBATCH -p gpu-long
+
+##=============  requirements ========##
+#SBATCH -N 2
+#SBATCH --tasks-per-node=32
+#SBATCH --mem=32000
+#SBATCH -t 336:00:00
+
+##=============  ping if fails or ends ========##
+#SBATCH --mail-type=fail,end
+#SBATCH --mail-user=afnanmostafa102@gmail.com
+
+##=============  output SLURM file info ========##
+#SBATCH -o slurm-%j.out
+#SBATCH --job-name=something_data
+
+##=============  dependency =========##
+##SBATCH --dependency=afterok:5862177 #job id goes after ''afterok:''
+
+##============= load modules ========##
+module load openmpi/4.1.3-mpirun
+
+
+##============ LAMMPS version (use only one) ========##
+
+##=============  2019 lammps WITH patch and ""g++"" (GNU C++ compiler, compiled on May 19 2022 ========##
+
+#mpirun -np $SLURM_NTASKS /work/afnanmostafa_umass_edu/mylammps7Aug2019/src/lmp_mpi < in.lmp
+
+##============= 2019 lammps WITHOUT patch and ""icpc"" (intel C++ Compiler, compiled on Aug 30 2022) IN USE ========##
+
+#mpirun -np $SLURM_NTASKS /work/afnanmostafa_umass_edu/lammps2019/lmps2019/src/lmp_mpi < in.lmp
+
+##============= 2021 lammps with ""g++"" (GNU C++ Compiler, compiled May 27 2022) ========##
+
+#mpirun -np $SLURM_NTASKS /work/afnanmostafa_umass_edu/lammps_latest/src/lmp_mpi < in.lmp
+
+##============= 2021 lammps with ""icpc"" (intel C++ Compiler, compiled Aug 26 2022) ========##
+
+#mpirun -np $SLURM_NTASKS /work/afnanmostafa_umass_edu/lammps_intel/mylammps/src/lmp_mpi < in.lmp
+
+##============= 2022 lammps with ""g++"" (GNU C++ Compiler, compiled Oct 26 2022) ========##
+
+mpirun -np $SLURM_NTASKS /work/afnanmostafa_umass_edu/PRODUCTION/Lammps22_oct26/lmpsoct22/src/lmp_mpi < in.lmp
+
