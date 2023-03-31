@@ -1,0 +1,1 @@
+alias si="sinfo -o \ "%20P %5D %14F %8z %10m %10d %11l %16f %N\ ""
